@@ -1,0 +1,26 @@
+service: clone-database
+frameworkVersion: "2"
+
+provider:
+  name: aws
+  runtime: python3.8
+  stage: ${opt:stage, "intg"}
+  lambdaHashingVersion: 20201221
+  region: ap-northeast-1
+  stackName:
+  deploymentBucket:
+  logRetentionInDays: 30
+
+package:
+  exclude:
+    - ./**
+  include:
+    - src/__init__.py
+
+plugins:
+  - serverless-prune-plugin
+
+custom:
+  prune:
+    automatic: true
+    number: 3
