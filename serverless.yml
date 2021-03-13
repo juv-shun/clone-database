@@ -10,12 +10,43 @@ provider:
   stackName:
   deploymentBucket:
   logRetentionInDays: 30
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - rds:CreateDBInstance
+            - rds:DescribeDBClusters
+            - rds:DescribeDBInstances
+            - rds:DescribeDBSnapshots
+            - rds:ListTagsForResource
+            - rds:RestoreDBClusterToPointInTime
+            - rds:RestoreDBInstanceFromDBSnapshot
+            - rds:RestoreDBInstanceToPointInTime
+          Resource:
+            - "*"
 
 package:
   exclude:
     - ./**
   include:
     - src/__init__.py
+
+functions:
+  planter:
+    name: clone-database-planter
+    description: run clone database
+    handler: src.planter.handler.handle
+    memorySize: 128
+    timeout: 60
+    package:
+      include:
+        - src/planter/*.py
+        - src/planter/*.json
+      individually: true
+    events:
+      - schedule:
+          rate: cron(0 16 * * ? *)
 
 plugins:
   - serverless-prune-plugin
