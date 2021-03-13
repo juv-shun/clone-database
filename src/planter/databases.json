@@ -1,0 +1,28 @@
+[
+  {
+    "Identifier": "",
+    "type": "general",
+    "settings": {
+      "instance_class": "db.t3.micro",
+      "az": "ap-northeast-1c",
+      "storage_type": "gp2",
+      "subnet_group": "",
+      "parameter_group": "",
+      "engine": "MySQL"
+    }
+  },
+  {
+    "Identifier": "",
+    "type": "aurora",
+    "cluster_settings": {
+      "subnet_group": "",
+      "port": 3306
+    },
+    "instance_settings": {
+      "instance_class": "db.t3.small",
+      "az": "ap-northeast-1c",
+      "subnet_group": "",
+      "parameter_group": ""
+    }
+  }
+]
